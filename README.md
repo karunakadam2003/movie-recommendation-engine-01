@@ -15,8 +15,9 @@ Here are the average RMSE, MAE and total execution time of various algorithms (w
 
 We will use __RMSE__(Root Mean Square Error) as our accuracy metric for the predictions.
 
-We will be comparing SVD, NMF, Normal Predictor, KNN Basic and will be using the one which will have least RMSE value.
-
+for model evaluation, I have used SVD, NMF, Knn basic, knnwithmeans.But among all these algorithms SVD performed well with the lowest RMSE  value.
+SVD i.e.Singular Value Decomposition uses the linear algebra technique to break down a matrix into the product of a few smaller matrices. It discovers relationships between items.A recommender system can be built quickly from this. As it discovered the relationship between the movies It was selected for building recommendation engine.
+Some information about other algorithms:
 
 -  __Normal Predictor__: It predicts a random rating based on the distribution of the training set, which is assumed to be normal. It's a basic algorithm that does not do much work but that is still useful for comparing accuracies.
 
