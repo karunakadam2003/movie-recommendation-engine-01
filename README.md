@@ -51,7 +51,7 @@ This project is deployed on Heroku
 ![Movie recommendation system](https://user-images.githubusercontent.com/90612970/170856109-6b8d32cb-4b2b-4cad-857b-c77500cb3aaf.png)
 ## Demo
 
-Insert gif or link to demo
+[link to demo](https://youtu.be/HpDNz0k8GP4)
 
 
 ## Presentation
