@@ -4,7 +4,6 @@ import requests
 import pandas as pd
 import surprise
 from collections import defaultdict
-import response
 import time
 import pyrebase
 from datetime import datetime
