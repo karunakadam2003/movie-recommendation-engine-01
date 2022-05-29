@@ -8,7 +8,7 @@ import time
 import pyrebase
 from datetime import datetime
 import json
-from streamlit_lottie import st_lottie,st_lottie_spinner
+
 
 # Configuration Key
 
@@ -65,17 +65,6 @@ ratings_dict = pickle.load(open('rating_dict.pkl','rb'))
 ratings = pd.DataFrame(ratings_dict)
 
 
-def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-lottie_url = "https://assets5.lottiefiles.com/packages/lf20_V9t630.json"
-
-#lottie_json = load_lottieurl(lottie_url)
-
-#st_lottie(lottie_json, key="hello",width=650,height = 600)
 
 def fetch_poster(movie_id):
     print(movie_id)
