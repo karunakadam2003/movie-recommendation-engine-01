@@ -107,7 +107,7 @@ def get_predictions_for_all_users():
 #     all_predictions = pickle.load(f)
 def get_predictions(user_id):
     all_predictions = get_predictions_for_all_users()
-    # TODO: pickle this, so that you don't have call this function every time
+   
     #pickle.dump(all_predictions, open("all_predictions.pkl", 'wb'))  # Pickle the trainset
     # Predict top 5 movie recommendations for the user
     n = 5
@@ -149,16 +149,12 @@ email = st.sidebar.text_input('Please enter your email')
 password = st.sidebar.text_input('Enter Password',type = 'password')
 st.balloons()
 
-
-def callback():
-    st.session_state.button_clicked = True
-if "button_clicked" not in st.session_state:
-    st.session_state.button_clicked = False
 if choice == 'Sign up':
     handle = st.sidebar.text_input('Enter your app handle name',value = 'Default')
     submit = st.sidebar.checkbox('Take me to Movie Mania'  )
 
     if submit:
+      #if submitted the details
         try :
             user = auth.create_user_with_email_and_password(email,password)
 
@@ -190,6 +186,7 @@ if choice == 'Sign up':
 
 
 if choice == 'Login':
+         #If login is selected
         login =  st.sidebar.checkbox("Login")
 
         if login:
@@ -197,15 +194,10 @@ if choice == 'Login':
             user_id = st.selectbox(
                 'Enter your user ID ', ratings['userId'].values
             )
-            selected_movie_name = st.selectbox(
-                'Select your favourite movie', movies['title'].values
-            )
-
+           
             recommendButton =  st.button("Show Recommendations")
             if recommendButton:
-                print("In if")
-                # recommend(selected_movie_name)
-                # st.write(selected_movie_name)
+                #If recommend button is pressed
                 names, posters = get_predictions(user_id)
                 print("Found Predictions")
                 col1, col2, col3, col4, col5 = st.columns(5)
