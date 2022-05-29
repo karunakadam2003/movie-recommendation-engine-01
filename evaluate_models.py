@@ -33,11 +33,6 @@ algo = gs.best_estimator['rmse']
 print(gs.best_score['rmse'])
 print(gs.best_params['rmse'])
 
-# I got best values and parameters
-# How algo works
-# SVD Performs better
-# Talk on Surprise Library
-
 
 st.write(gs.best_score['rmse'])
 st.write(gs.best_params['rmse'])
