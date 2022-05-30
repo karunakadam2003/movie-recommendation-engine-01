@@ -64,14 +64,13 @@ movies = pd.DataFrame(movies_dict)
 ratings_dict = pickle.load(open('rating_dict.pkl','rb'))
 ratings = pd.DataFrame(ratings_dict)
 
-
-
 def fetch_poster(movie_id):
+    # For fetching movie posters from TMDB AP
     print(movie_id)
     try:
-        url = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key=020433237875b772d11d1b1dbfca89c1'
+        url = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key=020433237875b772d11d1b1dbfca89c1'   #URL for each movieId
         print(url)
-        data = requests.get(url)
+        data = requests.get(url)    #Requesting URL
         data = data.json()
 
         poster = "https://image.tmdb.org/t/p/w500/" + data['poster_path']
@@ -81,9 +80,8 @@ def fetch_poster(movie_id):
     return poster
 
 #pickle the output
-def get_predictions_for_all_users():
 
-    #pickle predictions
+def get_predictions_for_all_users():
 
     trainset = pickle.load(open('trainset.pkl', 'rb'))
     svd_model = pickle.load(open('model.pkl', 'rb'))
@@ -107,9 +105,8 @@ def get_predictions_for_all_users():
 #     all_predictions = pickle.load(f)
 def get_predictions(user_id):
     all_predictions = get_predictions_for_all_users()
-   
-    #pickle.dump(all_predictions, open("all_predictions.pkl", 'wb'))  # Pickle the trainset
-    # Predict top 5 movie recommendations for the user
+    pickle.dump(all_predictions, open("all_predictions.pkl", 'wb'))  # Pickle the trainset
+    #Predict top 5 movie recommendations for the user
     n = 5
     for uid, user_ratings in all_predictions.items():
         user_ratings.sort(key=lambda x: x[1], reverse=True)
@@ -149,18 +146,23 @@ email = st.sidebar.text_input('Please enter your email')
 password = st.sidebar.text_input('Enter Password',type = 'password')
 st.balloons()
 
+
+def callback():
+    st.session_state.button_clicked = True
+if "button_clicked" not in st.session_state:
+    st.session_state.button_clicked = False
 if choice == 'Sign up':
     handle = st.sidebar.text_input('Enter your app handle name',value = 'Default')
     submit = st.sidebar.checkbox('Take me to Movie Mania'  )
 
     if submit:
-      #if submitted the details
         try :
             user = auth.create_user_with_email_and_password(email,password)
 
             auth.send_email_verification(user['idToken'])
             auth.send_password_reset_email(email)
             st.success('Your account is created!')
+            st.info('Now login to visit our Movie Mania')
             st.balloons()
 
             col1, col2 = st.columns(2)
@@ -170,7 +172,7 @@ if choice == 'Sign up':
                 st.sidebar.write('We have got you....')
                 st.balloons()
         except:
-            st.sidebar.text('Reenter your email.')
+            st.sidebar.text('')
             print("Exception occured")
 
         # Sign in
@@ -182,22 +184,24 @@ if choice == 'Sign up':
             st.info('Login via drop down selection')
             choice = st.checkbox("Login")
         except:
-            st.sidebar.text("Invalid Credentials.")
+            st.sidebar.text("")
 
 
 if choice == 'Login':
-         #If login is selected
-        login =  st.sidebar.checkbox("Login")
+        login =  st.sidebar.radio("Login","Y")
 
         if login:
             user = auth.sign_in_with_email_and_password(email,password)
             user_id = st.selectbox(
                 'Enter your user ID ', ratings['userId'].values
             )
-           
+
+
             recommendButton =  st.button("Show Recommendations")
             if recommendButton:
-                #If recommend button is pressed
+                print("In if")
+                # recommend(selected_movie_name)
+                # st.write(selected_movie_name)
                 names, posters = get_predictions(user_id)
                 print("Found Predictions")
                 col1, col2, col3, col4, col5 = st.columns(5)
